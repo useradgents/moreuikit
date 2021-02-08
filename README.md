@@ -1,3 +1,3 @@
 # MoreUIKit
 
-A description of this package.
+Collection of extensions, convenience methods, and helpful classes for UIKit.
