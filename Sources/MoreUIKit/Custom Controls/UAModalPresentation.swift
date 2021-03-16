@@ -1,5 +1,33 @@
 import UIKit
 
+/**
+ Animated transition for presenting modal view controllers,
+ with their presenting view controller still visible underneath a transparent black veil.
+ 
+ Usage in an arbitrary view controller:
+ 
+ ~~~
+    class MyViewController: UIViewController, UIViewControllerTransitioningDelegate {
+ 
+        override init(...) {
+            //...
+            modalPresentationStyle = .custom
+            transitioningDelegate = self
+        }
+ 
+        func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+            UAModalPresenter()
+        }
+
+        func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+            UAModalDismisser()
+        }
+    }
+ ~~~
+ 
+ - Remark: See also `UAModalDismisser` for dismissing.
+ */
+
 public final class UAModalPresenter: NSObject, UIViewControllerAnimatedTransitioning {
     let veilOpacity: CGFloat
     let transition: Transition
@@ -9,6 +37,13 @@ public final class UAModalPresenter: NSObject, UIViewControllerAnimatedTransitio
         case appear
     }
     
+    /**
+     - Parameters:
+        - veilOpacity: Opacity of the veil obscuring the presenting view controller. The veil is always black. (Default: 0.5)
+        - transition:
+            - `.slideIn`: appears from below, with a slide-in animation. (Default value)
+            - `.appear`: fade in and grow from the center of the screen.
+     */
     public init(veilOpacity: CGFloat = 0.5, transition: Transition = .slideIn) {
         self.veilOpacity = veilOpacity
         self.transition = transition
@@ -83,6 +118,12 @@ public final class UAModalPresenter: NSObject, UIViewControllerAnimatedTransitio
     }
 }
 
+/**
+ Animated transition for dismissing modal view controllers presented with `UAModalPresenter`.
+ 
+ - Remark: See also `UAModalPresenter` for more information.
+ */
+
 public final class UAModalDismisser: NSObject, UIViewControllerAnimatedTransitioning {
     let transition: Transition
     
@@ -91,6 +132,13 @@ public final class UAModalDismisser: NSObject, UIViewControllerAnimatedTransitio
         case disappear
     }
     
+    /**
+     - Parameters:
+         - transition:
+           - `.slideOut` is the reciprocal transition to `.slideIn` (Default value)
+           - `.disappear` is the reciprocal transition to `.appear`.
+     
+     */
     public init(transition: Transition = .slideOut) {
         self.transition = transition
         super.init()

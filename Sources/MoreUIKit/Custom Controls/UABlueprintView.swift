@@ -1,5 +1,9 @@
 import UIKit
 
+/**
+ Placeholder view that shows its bounds and margins over a nice blueprint design.
+ */
+
 public final class UABlueprintView: UIView {
     public override var bounds: CGRect { didSet { setNeedsDisplay() }}
     public override func safeAreaInsetsDidChange() {

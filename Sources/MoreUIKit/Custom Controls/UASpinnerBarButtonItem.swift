@@ -1,6 +1,17 @@
 import UIKit
 
+/**
+ A `UIBarButtonItem` that has an activity indicator (aka spinner).
+ 
+ The spinner inherits the tint color.
+ */
+
 public final class UASpinnerBarButtonItem: UIBarButtonItem {
+    /**
+     Create a new `UIBarButtonItem`
+     
+     - Parameter color: the tint color for the spinner (default: `.gray`)
+     */
     public init(color: UIColor = .gray) {
         super.init()
         let ac: UIActivityIndicatorView
@@ -27,10 +38,12 @@ public final class UASpinnerBarButtonItem: UIBarButtonItem {
         startAnimating()
     }
     
+    /// Animate the spinner
     public func startAnimating() {
         (customView as? UIActivityIndicatorView)?.startAnimating()
     }
     
+    /// Stop animating the spinner
     public func stopAnimating() {
         (customView as? UIActivityIndicatorView)?.stopAnimating()
     }

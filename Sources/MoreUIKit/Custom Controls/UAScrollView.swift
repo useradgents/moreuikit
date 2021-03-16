@@ -1,30 +1,29 @@
 import UIKit
 
-/*
+/**
  Scroll View subclass that automatically handles keyboard animations, designed to be used fullscreen.
  
- SETUP GUIDE
- In Interface Builder:
+ Setup in Interface Builder:
  
  - UAScrollView as root view:
- - Content Insets Adjustment Behaviour = Scrollable Axes
- - Preserve Superview Margins = false
- - Follow Readable Width = false
- - Safe Area Relative Margins = false
+     - Content Insets Adjustment Behaviour = Scrollable Axes
+     - Preserve Superview Margins = false
+     - Follow Readable Width = false
+     - Safe Area Relative Margins = false
  
  - ContentView as only child of the UAScrollView:
- - Preserve Superview Margins = true
- - Follow Readable Width = true
- - Safe Area Relative Margins = true
- - Constraints to setup:
- contentView.top = superview.top
- contentView.bottom = superview.bottom
- contentView.leading = superview.leading
- contentView.trailing = superview.trailing
- contentView.width = superview.width
- contentView.height ≥ superview.height → Wired to `contentViewHeightConstraint` outlet
+     - Preserve Superview Margins = true
+     - Follow Readable Width = true
+     - Safe Area Relative Margins = true
+     - Constraints to setup:
+         - contentView.top = superview.top
+         - contentView.bottom = superview.bottom
+         - contentView.leading = superview.leading
+         - contentView.trailing = superview.trailing
+         - contentView.width = superview.width
+         - contentView.height ≥ superview.height → Wired to `contentViewHeightConstraint` outlet (this is the important piece)
  
- - Then you can use an "equal spacing" vertical stack view inside the contentView,
+ Then you can use an "equal spacing" vertical stack view inside the contentView,
  constrained to its layout margins (NOT to the safe area, which is now included
  in the margins).
  
