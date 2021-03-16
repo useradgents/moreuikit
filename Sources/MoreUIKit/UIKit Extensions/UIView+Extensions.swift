@@ -39,6 +39,12 @@ public extension UIView {
         self.backgroundColor = bgColor
         return self
     }
+    
+    @discardableResult
+    func sizedToFit() -> Self {
+        self.sizeToFit()
+        return self
+    }
 }
 
 public extension UIView {
