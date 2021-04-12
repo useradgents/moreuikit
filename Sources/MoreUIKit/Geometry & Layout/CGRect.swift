@@ -35,5 +35,6 @@ public extension CGRect {
 }
 
 public extension Collection where Element == CGRect {
+    var union:        CGRect { reduce(.null, { $0.union($1)        }) }
     var intersection: CGRect { reduce(.null, { $0.intersection($1) }) }
 }

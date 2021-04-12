@@ -43,27 +43,44 @@ public extension UIImageView {
     }
 }
 
-public extension UIImage {
-    static func template(named name: String, in bundle: Bundle? = nil, compatibleWith traitCollection: UITraitCollection? = nil) -> UIImage? {
+extension UIImage {
+    public static func template(named name: String, in bundle: Bundle? = nil, compatibleWith traitCollection: UITraitCollection? = nil) -> UIImage? {
         UIImage(named: name, in: bundle, compatibleWith: traitCollection)?.withRenderingMode(.alwaysTemplate)
     }
     
     @available(iOS 13.0, *)
-    static func template(named name: String, in bundle: Bundle? = nil, with configuration: Configuration? = nil) -> UIImage? {
+    public static func template(named name: String, in bundle: Bundle? = nil, with configuration: Configuration? = nil) -> UIImage? {
         UIImage(named: name, in: bundle, with: configuration)?.withRenderingMode(.alwaysTemplate)
     }
     
     @available(iOS 13.0, *)
-    static func template(systemName name: String, compatibleWith traitCollection: UITraitCollection? = nil) -> UIImage? {
+    public static func template(systemName name: String, compatibleWith traitCollection: UITraitCollection? = nil) -> UIImage? {
         UIImage(systemName: name, compatibleWith: traitCollection)?.withRenderingMode(.alwaysTemplate)
     }
     
     @available(iOS 13.0, *)
-    static func template(systemName: String, withConfiguration configuration: Configuration? = nil) -> UIImage? {
+    public static func template(systemName: String, withConfiguration configuration: Configuration? = nil) -> UIImage? {
         UIImage(systemName: systemName, withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
     }
     
-    static func pixel(_ color: UIColor) -> UIImage {
+    public func resized(toHeight height: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: CGFloat(ceil(height/size.height * size.width)), height: height)
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    public func tinted(with color: UIColor) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        color.set()
+        withRenderingMode(.alwaysTemplate)
+            .draw(in: CGRect(origin: .zero, size: size))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    public static func pixel(_ color: UIColor) -> UIImage {
         let size = CGSize(width: 1, height: 1)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         defer { UIGraphicsEndImageContext() }
@@ -72,7 +89,7 @@ public extension UIImage {
         return UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
     }
     
-    static let clearPixel = UIImage.pixel(.clear)
-    static let blackPixel = UIImage.pixel(.black)
-    static let whitePixel = UIImage.pixel(.white)
+    public static let clearPixel = UIImage.pixel(.clear)
+    public static let blackPixel = UIImage.pixel(.black)
+    public static let whitePixel = UIImage.pixel(.white)
 }

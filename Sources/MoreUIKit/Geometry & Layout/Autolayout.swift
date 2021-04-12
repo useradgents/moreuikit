@@ -22,7 +22,7 @@ extension NSLayoutConstraint {
     }
 }
 
-// Shorthand for translatesAutoresizingMaskIntoConstraints
+// Shorthands
 
 extension UIView {
     public var autolayout: Bool {
@@ -35,6 +35,13 @@ extension UIView {
         translatesAutoresizingMaskIntoConstraints = false
         return self
     }
+    
+    public var safeLeftAnchor: NSLayoutXAxisAnchor { safeAreaLayoutGuide.leftAnchor }
+    public var safeCenterXAnchor: NSLayoutXAxisAnchor { safeAreaLayoutGuide.centerXAnchor }
+    public var safeRightAnchor: NSLayoutXAxisAnchor { safeAreaLayoutGuide.rightAnchor }
+    public var safeTopAnchor: NSLayoutYAxisAnchor { safeAreaLayoutGuide.topAnchor }
+    public var safeCenterYAnchor: NSLayoutYAxisAnchor { safeAreaLayoutGuide.centerYAnchor }
+    public var safeBottomAnchor: NSLayoutYAxisAnchor { safeAreaLayoutGuide.bottomAnchor }
 }
 
 
@@ -137,15 +144,26 @@ extension UIView {
     // Returns self
     @discardableResult
     public func addTo(_ superview: UIView, _ pins: Pin...) -> Self {
-        return self.addTo(superview, pins)
+        addTo(superview, pins)
     }
     
     // Returns self
     @discardableResult
     public func addTo(_ superview: UIView, _ pins: [Pin]) -> Self {
-        translatesAutoresizingMaskIntoConstraints = false
         superview.addSubview(self)
-        
+        pinToSuperview(pins)
+        return self
+    }
+    
+    @discardableResult
+    public func pinToSuperview(_ pins: Pin...) -> Self {
+        pinToSuperview(pins)
+    }
+    
+    @discardableResult
+    public func pinToSuperview(_ pins: [Pin] = [.init(.all, to: .absolute)]) -> Self {
+        guard let superview = superview else { return self }
+        translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate(pins.flatMap { pin in pin.attributes.compactMap { attr -> NSLayoutConstraint? in
             switch (attr, pin.relation) {
                 case (.leading, .equal):
@@ -186,7 +204,6 @@ extension UIView {
                     return nil
             }
         }})
-        
         return self
     }
 }

@@ -25,3 +25,19 @@ public extension CGPoint {
     }
 }
 
+
+public func + (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+    CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
+}
+
+public func + (lhs: CGPoint, rhs: CGSize) -> CGPoint {
+    CGPoint(x: lhs.x + rhs.width, y: lhs.y + rhs.height)
+}
+
+public func - (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+    CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
+}
+
+public func - (lhs: CGPoint, rhs: CGSize) -> CGPoint {
+    CGPoint(x: lhs.x - rhs.width, y: lhs.y - rhs.height)
+}

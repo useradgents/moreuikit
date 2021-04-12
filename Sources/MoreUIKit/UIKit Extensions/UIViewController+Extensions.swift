@@ -1,9 +1,10 @@
 import UIKit
 
 public extension UIViewController {
-    func inNavigationController() -> UINavigationController {
-        let nc = UINavigationController(rootViewController: self)
-        nc.navigationBar.prefersLargeTitles = true
+    func inNavigationController(navigationBarClass: AnyClass? = nil, prefersLargeTitle: Bool = true, toolbarClass: AnyClass? = nil) -> UINavigationController {
+        let nc = UINavigationController(navigationBarClass: navigationBarClass, toolbarClass: toolbarClass)
+        nc.navigationBar.prefersLargeTitles = prefersLargeTitle
+        nc.viewControllers = [self]
         return nc
     }
     

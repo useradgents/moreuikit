@@ -4,6 +4,11 @@ extension CGSize: CustomStringConvertible {
     public var description: String { "\(width) × \(height)" }
 }
 
+infix operator × : RangeFormationPrecedence
+public func × (lhs: CGFloat, rhs: CGFloat) -> CGSize {
+    CGSize(width: lhs, height: rhs)
+}
+
 public extension CGSize {
     init(vectorFrom origin: CGPoint, to dest: CGPoint) {
         self = CGSize(width: dest.x - origin.x, height: dest.y - origin.y)
@@ -72,4 +77,12 @@ public extension CGSize {
     
     var widthComponent: CGSize { CGSize(width: width, height: 0) }
     var heightComponent: CGSize { CGSize(width: 0, height: height) }
+}
+
+public func + (lhs: CGSize, rhs: CGSize) -> CGSize {
+    CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
+}
+
+public func - (lhs: CGSize, rhs: CGSize) -> CGSize {
+    CGSize(width: lhs.width - rhs.width, height: lhs.height - rhs.height)
 }

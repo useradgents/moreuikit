@@ -1,9 +1,10 @@
 import UIKit
 import LocalAuthentication
 import Slab
+import AudioToolbox
 
-public extension UIDevice {
-    enum BiometryType: CustomStringConvertible {
+extension UIDevice {
+    public enum BiometryType: CustomStringConvertible {
         case touchID
         case faceID
         
@@ -15,7 +16,7 @@ public extension UIDevice {
         }
     }
     
-    var biometryType: BiometryType? {
+    public var biometryType: BiometryType? {
         let ctx = LAContext()
         let _ = ctx.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
         switch ctx.biometryType {
@@ -25,7 +26,7 @@ public extension UIDevice {
         }
     }
     
-    func authenticate(reason: String, then: @escaping (Bool, Error?) -> Void) {
+    public func authenticate(reason: String, then: @escaping (Bool, Error?) -> Void) {
         guard biometryType != nil else { then(false, nil); return }
         
         let ctx = LAContext()
@@ -34,6 +35,20 @@ public extension UIDevice {
                 then(ret, err)
             }
         }
-        
+    }
+    
+    public static func feedbackError() {
+        switch UIDevice.current.value(forKey: "_feedbackSupportLevel") as? Int ?? 0 {
+            case 1:
+                AudioServicesPlaySystemSound(1521)
+                
+            case 2:
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.prepare()
+                generator.impactOccurred()
+                
+            default:
+                return
+        }
     }
 }

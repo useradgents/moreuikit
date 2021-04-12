@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "Slab",
-        "repositoryURL": "https://bitbucket.org/useradgents/slab.git",
+        "repositoryURL": "https://github.com/useradgents/slab.git",
         "state": {
           "branch": null,
-          "revision": "814e94ac4b76dded50d97bb49c31b80383b66c72",
-          "version": "1.0.0"
+          "revision": "48fad86a74290886d482246d7ecc22ca2e3a7baa",
+          "version": "1.0.2"
         }
       }
     ]
