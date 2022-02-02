@@ -2,12 +2,39 @@
   "object": {
     "pins": [
       {
+        "package": "KeychainSwift",
+        "repositoryURL": "https://github.com/evgenyneu/keychain-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "d108a1fa6189e661f91560548ef48651ed8d93b9",
+          "version": "20.0.0"
+        }
+      },
+      {
+        "package": "Reachability",
+        "repositoryURL": "https://github.com/ashleymills/Reachability.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "c01bbdf2d633cf049ae1ed1a68a2020a8bda32e2",
+          "version": "5.1.0"
+        }
+      },
+      {
+        "package": "RNCryptor",
+        "repositoryURL": "https://github.com/RNCryptor/RNCryptor.git",
+        "state": {
+          "branch": null,
+          "revision": "5e3bbf44f08bf90049537cb8902d8f4fa911a79a",
+          "version": "5.1.0"
+        }
+      },
+      {
         "package": "Slab",
         "repositoryURL": "https://github.com/useradgents/slab.git",
         "state": {
           "branch": null,
-          "revision": "48fad86a74290886d482246d7ecc22ca2e3a7baa",
-          "version": "1.0.2"
+          "revision": "69c3bc0f3ab41446bec1af017df8610469a5a013",
+          "version": "1.3.1"
         }
       }
     ]
